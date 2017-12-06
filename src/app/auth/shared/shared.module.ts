@@ -2,6 +2,8 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { MaterialModule } from './../../material.module';
+
 // Components
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
 
@@ -14,7 +16,8 @@ import { AuthFormComponent } from './components/auth-form/auth-form.component';
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   declarations: [
     AuthFormComponent

@@ -6,36 +6,43 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['auth-form.component.scss'],
   template: `
     <div class="auth-form">
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ng-content select="mat-toolbar"></ng-content>
+      <mat-card>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-        <ng-content select="h1"></ng-content>
+          <mat-form-field>
+            <input
+              matInput
+              type="email"
+              placeholder="Email adress"
+              formControlName="email">
+            <mat-error class="error" *ngIf="emailFormat">
+              Invalid email format
+            </mat-error>
+          </mat-form-field>
 
-        <mat-form-field>
-          <input
-            matInput
-            type="email"
-            placeholder="Email adress"
-            formControlName="email">
-        </mat-form-field>
+          <mat-form-field>
+            <input
+              matInput
+              type="password"
+              placeholder="Enter password"
+              formControlName="password">
+            <mat-error class="error" *ngIf="passwordInvalid">
+              Password is required
+            </mat-error>
+          </mat-form-field>
 
-        <mat-form-field>
-          <input
-            matInput
-            type="password"
-            placeholder="Enter password"
-            formControlName="password">
-        </mat-form-field>
+          <ng-content select=".error"></ng-content>
 
-        <ng-content select=".error"></ng-content>
+          <div class="auth-form__action">
+            <ng-content select="button"></ng-content>
+          </div>
 
-        <div class="auth-form__action">
-          <ng-content select="button"></ng-content>
-        </div>
-
-        <div class="auth-form__toggle">
-          <ng-content select="a"></ng-content>
-        </div>
-      </form>
+          <div class="auth-form__toggle">
+            <ng-content select="a"></ng-content>
+          </div>
+        </form>
+      </mat-card>
     </div>
   `
 })
@@ -54,7 +61,6 @@ export class AuthFormComponent {
   ) {}
 
   onSubmit() {
-    console.log(this.form.valid);
     if (this.form.valid) {
       this.submitted.emit(this.form);
     }

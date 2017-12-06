@@ -3,9 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 // Feature modules
-import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
 
 // Containers
@@ -26,7 +24,6 @@ export const ROUTES: Routes = [
     BrowserModule,
     RouterModule.forRoot(ROUTES),
     AuthModule,
-    MaterialModule,
     BrowserAnimationsModule
   ],
   providers: [],

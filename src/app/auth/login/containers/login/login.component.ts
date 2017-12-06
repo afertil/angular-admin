@@ -9,14 +9,19 @@ import { Router } from '@angular/router';
   template: `
     <div>
       <app-auth-form (submitted)="loginUser($event)">
-        <h1>Login</h1>
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <h1>Login</h1>
+        </mat-toolbar-row>
+      </mat-toolbar>
+
         <!-- <a routerLink="/auth/register">Not registered?</a> -->
-        <button type="submit">
+        <button mat-raised-button color="primary" type="submit">
           Login
         </button>
-        <div class="error" *ngIf="error">
+        <mat-error class="error" *ngIf="error">
           {{ error }}
-        </div>
+        </mat-error>
       </app-auth-form>
     </div>
   `
