@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
   template: `
     <div>
       <app-auth-form (submitted)="loginUser($event)">
-      <mat-toolbar color="primary">
-        <mat-toolbar-row>
-          <h1>Login</h1>
-        </mat-toolbar-row>
-      </mat-toolbar>
+        <mat-toolbar color="primary">
+          <mat-toolbar-row>
+            <h1>Login</h1>
+          </mat-toolbar-row>
+        </mat-toolbar>
 
         <!-- <a routerLink="/auth/register">Not registered?</a> -->
         <button mat-raised-button color="primary" type="submit">

@@ -8,10 +8,10 @@ import { MaterialModule } from './../../material.module';
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
 
 // Services
-// import { AuthService } from './services/auth/auth.service';
+import { AuthService } from './services/auth.service';
 
 // guards
-// import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   imports: [
@@ -31,8 +31,8 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        // AuthService,
-        // AuthGuard
+        AuthService,
+        AuthGuard
       ]
     };
   }
