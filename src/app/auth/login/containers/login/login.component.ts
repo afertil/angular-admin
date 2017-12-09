@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
-// import { AuthService } from '../../../shared/services/auth/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { LoggerService } from '../../../../shared/logger/logger.service';
 
 @Component({
   selector: 'app-login',
@@ -32,19 +33,23 @@ export class LoginComponent {
   error: string;
 
     constructor(
-      // private authService: AuthService,
+      private authService: AuthService,
+      private loggerService: LoggerService,
       private router: Router
     ) {}
 
     async loginUser(event: FormGroup) {
       const { email, password } = event.value;
 
-      try {
-        await console.log({ email, password });
-        // await this.authService.loginUser(email, password);
-        // this.router.navigate(['/']);
-      } catch (err) {
-        this.error = err.message;
-      }
+      await this.authService.loginUser(email, password)
+        .subscribe(
+          res => {
+            this.authService.saveTokens(res);
+            this.loggerService.success('Successfully connected');
+            this.router.navigate(['dashboard']);
+          },
+          error => this.loggerService.error(error.error.message)
+        );
+
     }
 }
