@@ -5,7 +5,7 @@ import { User } from '../../auth/shared/services/auth.service';
 @Component({
   selector: 'app-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['app-header.component.scss'],
+  styleUrls: ['header.component.scss'],
   template: `
     <mat-toolbar color="primary" class="app-header">
       <mat-toolbar-row>
@@ -32,7 +32,7 @@ import { User } from '../../auth/shared/services/auth.service';
     </mat-toolbar>
   `
 })
-export class AppHeaderComponent {
+export class HeaderComponent {
 
   @Input()
   user: User;
