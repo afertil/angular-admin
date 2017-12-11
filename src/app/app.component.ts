@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
         (logout)="onLogout()"
       >
       </app-header>
+      <app-sidebar></app-sidebar>
       <div class="wrapper">
         <router-outlet></router-outlet>
       </div>

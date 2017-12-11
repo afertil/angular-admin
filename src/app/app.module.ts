@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 
 // Components
 import { HeaderComponent } from './shared/header/header.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 // Services
 import { LoggerService } from './shared/logger/logger.service';
@@ -42,7 +43,8 @@ export const JWT_ROUTES = {
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
