@@ -4,14 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 // Shared modules
 import { MaterialModule } from './../material.module';
 
-// Guards
-import { AuthGuard } from '../auth/shared/guards/auth.guard';
-
 // Containers
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 
 export const ROUTES: Routes = [
-  { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent}
+  { path: '', component: DashboardComponent}
 ];
 
 @NgModule({

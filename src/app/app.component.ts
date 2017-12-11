@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./app.component.scss'],
   template: `
     <div>
-      <app-header
-        [isAuthenticated]="isAuthenticated"
+      <app-header *ngIf="user$"
+        [user]="user$ | async"
         (logout)="onLogout()"
       >
       </app-header>
@@ -31,16 +31,15 @@ export class AppComponent implements OnInit {
   ) {}
 
   subscription: Subscription;
-  isAuthenticated: boolean;
+  user$: Observable<User>;
 
   ngOnInit() {
-    this.isAuthenticated = this.authService.isAuthenticated();
+    this.user$ = null; // this.authService.user;
   }
 
   onLogout() {
     this.authService.logoutUser();
     this.router.navigate(['/auth/login']);
     this.loggerService.success('Successfully disconnected');
-    this.isAuthenticated = false;
   }
 }

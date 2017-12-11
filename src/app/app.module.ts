@@ -9,7 +9,6 @@ import { JwtModule } from '@auth0/angular-jwt';
 // Feature modules
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
-import { DashboardModule } from './dashboard/dashboard.module';
 
 // Containers
 import { AppComponent } from './app.component';
@@ -20,9 +19,14 @@ import { AppHeaderComponent } from './shared/app-header/app-header.component';
 // Services
 import { LoggerService } from './shared/logger/logger.service';
 
+// Guard
+import { AuthGuard } from './auth/shared/guards/auth.guard';
+
 // Routes
 export const ROUTES: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'dashboard' }
+  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+  { path: 'dashboard', canActivate: [AuthGuard], loadChildren: './dashboard/dashboard.module#DashboardModule'},
+  { path: 'users', canActivate: [AuthGuard], loadChildren: './users/users.module#UsersModule'},
 ];
 
 // JWT
@@ -46,7 +50,6 @@ export const JWT_ROUTES = {
     JwtModule.forRoot(JWT_ROUTES),
     RouterModule.forRoot(ROUTES),
     AuthModule,
-    DashboardModule,
     BrowserAnimationsModule,
     MaterialModule
   ],

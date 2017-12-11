@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
 
@@ -8,6 +9,7 @@ import { map } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
 
 import { Store } from '../../../../store';
+import { APP_CONFIG } from './../../../../config';
 
 export interface User {
   email: string;
@@ -43,7 +45,7 @@ export class AuthService {
    * @param {string} password - Password user
    */
   loginUser(email: string, password: string) {
-    return this.http.post('http://localhost:3000/auth/login', { email, password });
+    return this.http.post(`${APP_CONFIG.api}/auth/login`, { email, password });
   }
 
   /**

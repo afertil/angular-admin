@@ -13,7 +13,7 @@ import { User } from '../../auth/shared/services/auth.service';
         <span class="app-title">Angular Admin</span>
         <span class="space"></span>
 
-        <div *ngIf="isAuthenticated">
+        <div>
           <button mat-icon-button matTooltip="Account" [mat-menu-trigger-for]="userMenu" tabindex="-1">
             <mat-icon>account_circle</mat-icon>
           </button>
@@ -35,7 +35,7 @@ import { User } from '../../auth/shared/services/auth.service';
 export class AppHeaderComponent {
 
   @Input()
-  isAuthenticated: Boolean;
+  user: User;
 
   @Output()
   logout = new EventEmitter<any>();
