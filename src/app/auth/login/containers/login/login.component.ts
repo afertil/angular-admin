@@ -44,7 +44,7 @@ export class LoginComponent {
       await this.authService.loginUser(email, password)
         .subscribe(
           res => {
-            this.authService.saveTokens(res);
+            this.authService.storeData(res);
             this.loggerService.success('Successfully connected');
             this.router.navigate(['dashboard']);
           },

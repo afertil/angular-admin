@@ -19,6 +19,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
 // Services
 import { LoggerService } from './shared/logger/logger.service';
+import { Store } from '../store';
 
 // Guard
 import { AuthGuard } from './auth/shared/guards/auth.guard';
@@ -55,7 +56,10 @@ export const JWT_ROUTES = {
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [LoggerService],
+  providers: [
+    LoggerService,
+    Store
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

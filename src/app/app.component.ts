@@ -5,27 +5,29 @@ import { Router } from '@angular/router';
 import { LoggerService } from './shared/logger/logger.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { Store } from '../store';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-root',
   styleUrls: ['./app.component.scss'],
   template: `
     <div>
-      <app-header *ngIf="user$"
+      <app-header *ngIf="user$ | async"
         [user]="user$ | async"
-        (logout)="onLogout()"
-      >
+        (logout)="onLogout()">
       </app-header>
-      <app-sidebar></app-sidebar>
+
       <div class="wrapper">
         <router-outlet></router-outlet>
       </div>
     </div>
   `
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
+    private store: Store,
     private router: Router,
     private authService: AuthService,
     private loggerService: LoggerService
@@ -35,7 +37,12 @@ export class AppComponent implements OnInit {
   user$: Observable<User>;
 
   ngOnInit() {
-    this.user$ = null; // this.authService.user;
+    this.subscription = this.authService.user.subscribe();
+    this.user$ = this.store.select<User>('user');
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onLogout() {

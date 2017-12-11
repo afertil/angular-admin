@@ -21,21 +21,22 @@ export interface User {
 export class AuthService {
 
   constructor(
-    // private store: Store,
+    private store: Store,
     private http: HttpClient,
     private jwtHelperService: JwtHelperService
   ) {}
 
+  /**
+   * Gets the connected user
+   *
+   */
   get user() {
-    return {
-      uid: ''
-    };
-  }
+    if (!this.store.value.user && !localStorage.getItem('user')) {
+      return null;
+    }
+    this.store.set('user', JSON.parse(localStorage.getItem('user')));
 
-  // get authState() {
-  // }
-
-  createUser(email: string, password: string) {
+    return this.store.select<User>('user');
   }
 
   /**
@@ -49,13 +50,16 @@ export class AuthService {
   }
 
   /**
-   * Saves tokens in localStorage
+   * Saves tokens and the connected user in localStorage
    *
-   * @param {array} tokens - Access and refresh JWT tokens
+   * @param {array} data - Access, refresh JWT tokens and connected user
    */
-  saveTokens(tokens) {
-    localStorage.setItem('access_token', tokens.accessToken);
-    localStorage.setItem('refresh_token', tokens.refreshToken);
+  storeData(data) {
+    localStorage.setItem('access_token', data.tokens.accessToken);
+    localStorage.setItem('refresh_token', data.tokens.refreshToken);
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    this.store.set('user', data.user);
   }
 
   /**
@@ -99,5 +103,8 @@ export class AuthService {
   logoutUser() {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user');
+
+    this.store.set('user', null);
   }
 }
