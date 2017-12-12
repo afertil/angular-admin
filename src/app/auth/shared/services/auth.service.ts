@@ -13,8 +13,8 @@ import { APP_CONFIG } from './../../../../config';
 
 export interface User {
   email: string;
-  uid: string;
-  authenticated: boolean;
+  _id: string;
+  name: string;
 }
 
 @Injectable()
@@ -31,10 +31,9 @@ export class AuthService {
    *
    */
   get user() {
-    if (!this.store.value.user && !localStorage.getItem('user')) {
-      return null;
+    if (!this.store.value.user && localStorage.getItem('user')) {
+      this.store.set('user', JSON.parse(localStorage.getItem('user')));
     }
-    this.store.set('user', JSON.parse(localStorage.getItem('user')));
 
     return this.store.select<User>('user');
   }

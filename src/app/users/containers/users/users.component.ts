@@ -12,21 +12,11 @@ import { MatTableDataSource } from '@angular/material';
     <div>
       <!-- <mat-spinner *ngIf="isLoadingResults"></mat-spinner> -->
 
-      <mat-table #table [dataSource]="usersTable">
+      <app-user-list
+        [users]="usersTable"
+        (remove)="removeUser($event)">
+      </app-user-list>
 
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let user"> {{ user.name }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-      <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
-    </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
     </div>
   `
 })
@@ -49,12 +39,16 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.usersService.getUsers()
     .subscribe(
-      (res: User[]) => {
-        this.users = res;
-        this.usersTable = new MatTableDataSource<User>(res);
+      (users: User[]) => {
+        this.users = users;
+        this.usersTable = new MatTableDataSource<User>(users);
         this.isLoadingResults = false;
       },
       error => this.loggerService.error(error.error.message)
     );
+  }
+
+  removeUser($event) {
+    console.log($event);
   }
 }

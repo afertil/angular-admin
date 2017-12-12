@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpResponse } from '@angular/common/http';
 
+import { Observable } from 'rxjs/Observable';
+
 import { APP_CONFIG } from './../../../../config';
 import { User } from '../../../auth/shared/services/auth.service';
 
@@ -10,23 +12,23 @@ export class UsersService {
     private http: HttpClient,
   ) {}
 
-  getUsers() {
-    return this.http.get(`${APP_CONFIG.api}/users`);
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${APP_CONFIG.api}/users`);
   }
 
-  getUser(id: number) {
-
+  getUser(id: number): Observable<User> {
+    return this.http.get<User>(`${APP_CONFIG.api}/users/${id}`);
   }
 
-  createUser(user: User) {
-
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(`${APP_CONFIG.api}/users`, user);
   }
 
-  updateUser(id: number, user: User) {
-
+  updateUser(user: User): Observable<any> {
+    return this.http.put(`${APP_CONFIG.api}/users/${user._id}`, user);
   }
 
-  removeUser(id: number) {
-
+  deleteUser(id: number): Observable<User> {
+    return this.http.delete<User>(`${APP_CONFIG.api}/users/${id}`);
   }
 }

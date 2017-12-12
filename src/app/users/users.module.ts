@@ -11,6 +11,9 @@ import { UsersService } from './shared/services/users.service';
 // Containers
 import { UsersComponent } from './containers/users/users.component';
 
+// Components
+import { UserListComponent } from './component/user-list/user-list.component';
+
 export const ROUTES: Routes = [
   { path: '', component: UsersComponent },
   // { path: 'new', canActivate: [AuthGuard], component: UserComponent},
@@ -26,7 +29,8 @@ export const ROUTES: Routes = [
   ],
   exports: [],
   declarations: [
-    UsersComponent
+    UsersComponent,
+    UserListComponent
   ],
   providers: [UsersService],
 })
