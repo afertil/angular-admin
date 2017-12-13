@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { User, AuthService } from './auth/shared/services/auth.service';
 import { Router } from '@angular/router';
@@ -15,8 +15,13 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
     <div>
       <app-header *ngIf="user$ | async"
         [user]="user$ | async"
-        (logout)="onLogout()">
+        (logout)="onLogout()"
+        (toggledSidenav)="onToggledSidenav($event)">
       </app-header>
+
+      <app-sidebar
+        [toggle]="toggledSidenav">
+      </app-sidebar>
 
       <div class="wrapper">
         <router-outlet></router-outlet>
@@ -26,15 +31,16 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  subscription: Subscription;
+  user$: Observable<User>;
+  toggledSidenav: boolean;
+
   constructor(
     private store: Store,
     private router: Router,
     private authService: AuthService,
     private loggerService: LoggerService
   ) {}
-
-  subscription: Subscription;
-  user$: Observable<User>;
 
   ngOnInit() {
     this.subscription = this.authService.user.subscribe();
@@ -49,5 +55,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.logoutUser();
     this.router.navigate(['/auth/login']);
     this.loggerService.success('Successfully disconnected');
+  }
+
+  onToggledSidenav(event: boolean) {
+    this.toggledSidenav = event;
   }
 }

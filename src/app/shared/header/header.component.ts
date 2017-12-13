@@ -9,6 +9,10 @@ import { User } from '../../auth/shared/services/auth.service';
   template: `
     <mat-toolbar color="primary" class="app-header">
       <mat-toolbar-row>
+        <button mat-icon-button (click)="toggleSidenav()">
+          <mat-icon>menu</mat-icon>
+        </button>
+
         <mat-icon>whatshot</mat-icon>
         <span class="app-title">Angular Admin</span>
         <span class="space"></span>
@@ -34,13 +38,29 @@ import { User } from '../../auth/shared/services/auth.service';
 })
 export class HeaderComponent {
 
+  toggled = false;
+
   @Input()
   user: User;
 
   @Output()
   logout = new EventEmitter<any>();
 
+  @Output()
+  toggledSidenav = new EventEmitter<boolean>();
+
+  /**
+   * Launch an event to logout the user
+   */
   logoutUser() {
     this.logout.emit();
+  }
+
+  /**
+   * Launch an event to open or close the sidenav
+   */
+  toggleSidenav() {
+    this.toggled = !this.toggled;
+    this.toggledSidenav.emit(this.toggled);
   }
 }
