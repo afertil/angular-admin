@@ -54,8 +54,8 @@ import { AfterViewInit, OnInit } from '@angular/core/src/metadata/lifecycle_hook
           </mat-row>
         </mat-table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
     </div>
   `
 })

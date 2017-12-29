@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { User } from './../../../auth/shared/services/auth.service';
-import { UsersService } from '../../shared/services/users.service';
-import { LoggerService } from './../../../shared/logger/logger.service';
-import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-users',
@@ -13,8 +11,7 @@ import { MatTableDataSource } from '@angular/material';
       <!-- <mat-spinner *ngIf="isLoadingResults"></mat-spinner> -->
 
       <app-user-list
-        [users]="usersTable"
-        (remove)="removeUser($event)">
+        [users]="users">
       </app-user-list>
 
     </div>
@@ -23,27 +20,18 @@ import { MatTableDataSource } from '@angular/material';
 export class UsersComponent implements OnInit {
 
   users: User[];
-  usersTable: MatTableDataSource<User>;
-  isLoadingResults = true;
 
   constructor(
-    private usersService: UsersService,
-    private loggerService: LoggerService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.usersService.getUsers()
-    .subscribe(
-      (users: User[]) => {
-        this.users = users;
-        this.usersTable = new MatTableDataSource<User>(users);
-        this.isLoadingResults = false;
-      },
-      error => this.loggerService.error(error.error.message)
-    );
-  }
 
-  removeUser($event) {
-    console.log($event);
+    // Retrieve the prefetched users
+    this.route.data.subscribe(
+      (data: { users: User[] }) => {
+        this.users = data.users;
+      }
+    );
   }
 }

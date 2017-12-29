@@ -7,6 +7,7 @@ import { MaterialModule } from './../material.module';
 
 // Services
 import { UsersService } from './shared/services/users.service';
+import { UsersResolver } from './shared/resolvers/users-resolver.service';
 
 // Containers
 import { UsersComponent } from './containers/users/users.component';
@@ -15,7 +16,7 @@ import { UsersComponent } from './containers/users/users.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 
 export const ROUTES: Routes = [
-  { path: '', component: UsersComponent },
+  { path: '', component: UsersComponent, resolve: {users: UsersResolver} },
   // { path: 'new', canActivate: [AuthGuard], component: UserComponent},
   // { path: ':id', canActivate: [AuthGuard], component: UserComponent}
 ];
@@ -32,6 +33,9 @@ export const ROUTES: Routes = [
     UsersComponent,
     UserListComponent
   ],
-  providers: [UsersService],
+  providers: [
+    UsersService,
+    UsersResolver
+    ],
 })
 export class UsersModule {}

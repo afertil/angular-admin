@@ -16,7 +16,7 @@ export class UsersService {
     return this.http.get<User[]>(`${APP_CONFIG.api}/users`);
   }
 
-  getUser(id: number): Observable<User> {
+  getUser(id: string): Observable<User> {
     return this.http.get<User>(`${APP_CONFIG.api}/users/${id}`);
   }
 
@@ -24,11 +24,11 @@ export class UsersService {
     return this.http.post<User>(`${APP_CONFIG.api}/users`, user);
   }
 
-  updateUser(user: User): Observable<any> {
-    return this.http.put(`${APP_CONFIG.api}/users/${user.id}`, user);
+  updateUser(id: string, user: User): Observable<any> {
+    return this.http.put(`${APP_CONFIG.api}/users/${id}`, user);
   }
 
-  deleteUser(id: number): Observable<User> {
+  deleteUser(id: string): Observable<User> {
     return this.http.delete<User>(`${APP_CONFIG.api}/users/${id}`);
   }
 }

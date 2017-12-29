@@ -32,8 +32,8 @@ export class ArticlesService {
     return this.http.post<Article>(`${APP_CONFIG.api}/articles`, article);
   }
 
-  updateArticle(key: string, article: Article): Observable<any> {
-    return this.http.put(`${APP_CONFIG.api}/articles/${key}`, article);
+  updateArticle(id: string, article: Article): Observable<any> {
+    return this.http.put(`${APP_CONFIG.api}/articles/${id}`, article);
   }
 
   deleteArticle(id: string): Observable<Article> {
