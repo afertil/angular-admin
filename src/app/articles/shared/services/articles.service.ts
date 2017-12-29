@@ -29,7 +29,6 @@ export class ArticlesService {
   }
 
   createArticle(article: Article): Observable<Article> {
-    console.log(article);
     return this.http.post<Article>(`${APP_CONFIG.api}/articles`, article);
   }
 
