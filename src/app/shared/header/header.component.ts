@@ -13,8 +13,10 @@ import { User } from '../../auth/shared/services/auth.service';
           <mat-icon>menu</mat-icon>
         </button>
 
-        <mat-icon>whatshot</mat-icon>
-        <span class="app-title">Angular Admin</span>
+        <div class="brand" [class.expanded]="toggled">
+          <mat-icon>whatshot</mat-icon>
+          <span class="app-title">Angular Admin</span>
+        </div>
         <span class="space"></span>
 
         <div>
