@@ -38,7 +38,7 @@ import { User } from '../../auth/shared/services/auth.service';
 })
 export class HeaderComponent {
 
-  toggled = false;
+  toggled = true;
 
   @Input()
   user: User;

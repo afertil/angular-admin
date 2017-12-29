@@ -13,8 +13,8 @@ import { APP_CONFIG } from './../../../../config';
 
 export interface User {
   email: string;
-  _id: string;
-  name: string;
+  id: string;
+  username: string;
 }
 
 @Injectable()

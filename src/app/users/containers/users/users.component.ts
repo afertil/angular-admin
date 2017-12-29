@@ -26,11 +26,6 @@ export class UsersComponent implements OnInit {
   usersTable: MatTableDataSource<User>;
   isLoadingResults = true;
 
-  displayedColumns = [
-    'name',
-    'email'
-  ];
-
   constructor(
     private usersService: UsersService,
     private loggerService: LoggerService

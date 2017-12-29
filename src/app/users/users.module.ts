@@ -12,7 +12,7 @@ import { UsersService } from './shared/services/users.service';
 import { UsersComponent } from './containers/users/users.component';
 
 // Components
-import { UserListComponent } from './component/user-list/user-list.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 export const ROUTES: Routes = [
   { path: '', component: UsersComponent },

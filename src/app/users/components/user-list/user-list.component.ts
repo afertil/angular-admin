@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material';
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let user"> {{ user.name }} </mat-cell>
+        <mat-cell *matCellDef="let user"> {{ user.username }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="email">
@@ -97,6 +97,6 @@ export class UserListComponent {
   }
 
   getRoute(user: any) {
-    return [user._id];
+    return [user.id];
   }
 }

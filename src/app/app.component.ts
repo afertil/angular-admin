@@ -23,9 +23,6 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
         [toggle]="toggledSidenav">
       </app-sidebar>
 
-      <div class="wrapper">
-        <router-outlet></router-outlet>
-      </div>
     </div>
   `
 })
@@ -33,7 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
   user$: Observable<User>;
-  toggledSidenav: boolean;
+  toggledSidenav = true;
 
   constructor(
     private store: Store,

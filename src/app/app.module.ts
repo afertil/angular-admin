@@ -29,6 +29,7 @@ export const ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   { path: 'dashboard', canActivate: [AuthGuard], loadChildren: './dashboard/dashboard.module#DashboardModule'},
   { path: 'users', canActivate: [AuthGuard], loadChildren: './users/users.module#UsersModule'},
+  { path: 'articles', canActivate: [AuthGuard], loadChildren: './articles/articles.module#ArticlesModule'},
 ];
 
 // JWT
@@ -50,7 +51,14 @@ export const JWT_ROUTES = {
   imports: [
     BrowserModule,
     HttpClientModule,
-    JwtModule.forRoot(JWT_ROUTES),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('access_token');
+        },
+        whitelistedDomains: ['localhost:3000']
+      }
+    }),
     RouterModule.forRoot(ROUTES),
     AuthModule,
     BrowserAnimationsModule,
