@@ -6,7 +6,7 @@ import { Article } from '../../shared/services/articles.service';
   selector: 'app-articles',
   styleUrls: ['articles.component.scss'],
   template: `
-    <div>
+    <div class="articles">
       <app-article-list
         [articles]="articles">
       </app-article-list>

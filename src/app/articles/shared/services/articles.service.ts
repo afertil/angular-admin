@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { APP_CONFIG } from './../../../../config';
 
 export interface Article {
-  id: string;
+  _id: string;
   title: string;
   content: string;
   author: string;
@@ -24,19 +24,20 @@ export class ArticlesService {
     return this.http.get<Article[]>(`${APP_CONFIG.api}/articles`);
   }
 
-  getArticle(id: number): Observable<Article> {
+  getArticle(id: string): Observable<Article> {
     return this.http.get<Article>(`${APP_CONFIG.api}/articles/${id}`);
   }
 
   createArticle(article: Article): Observable<Article> {
+    console.log(article);
     return this.http.post<Article>(`${APP_CONFIG.api}/articles`, article);
   }
 
-  updateArticle(article: Article): Observable<any> {
-    return this.http.put(`${APP_CONFIG.api}/articles/${article.id}`, article);
+  updateArticle(key: string, article: Article): Observable<any> {
+    return this.http.put(`${APP_CONFIG.api}/articles/${key}`, article);
   }
 
-  deleteArticle(id: number): Observable<Article> {
+  deleteArticle(id: string): Observable<Article> {
     return this.http.delete<Article>(`${APP_CONFIG.api}/articles/${id}`);
   }
 }

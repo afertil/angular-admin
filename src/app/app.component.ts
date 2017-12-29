@@ -12,7 +12,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   selector: 'app-root',
   styleUrls: ['./app.component.scss'],
   template: `
-    <div>
+    <div class="mat-typography">
       <app-header *ngIf="user$ | async"
         [user]="user$ | async"
         (logout)="onLogout()"

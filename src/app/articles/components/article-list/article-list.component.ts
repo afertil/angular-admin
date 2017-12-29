@@ -10,6 +10,8 @@ import { AfterViewInit, OnInit } from '@angular/core/src/metadata/lifecycle_hook
   template: `
     <div class="article-list">
       <div class="table-header">
+        <h1>Articles list</h1>
+
         <mat-form-field>
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
@@ -17,7 +19,6 @@ import { AfterViewInit, OnInit } from '@angular/core/src/metadata/lifecycle_hook
         <a mat-raised-button color="primary" class="create-article" [routerLink]="'../articles/new'">
           <mat-icon>add</mat-icon> New
         </a>
-
       </div>
 
       <div class="container mat-elevation-z8">
@@ -26,23 +27,30 @@ import { AfterViewInit, OnInit } from '@angular/core/src/metadata/lifecycle_hook
           <!-- Title column -->
           <ng-container matColumnDef="title">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
+            <mat-cell *matCellDef="let article"> {{ article.title }} </mat-cell>
           </ng-container>
 
           <!-- Author column -->
           <ng-container matColumnDef="author">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Author </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.author }} </mat-cell>
+            <mat-cell *matCellDef="let article"> {{ article.author }} </mat-cell>
           </ng-container>
 
           <!-- Created at column -->
           <ng-container matColumnDef="createdAt">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Created At </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.created_at | date : 'MMM d, yyyy' }} </mat-cell>
+            <mat-cell *matCellDef="let article"> {{ article.created_at | date : 'MMM d, yyyy' }} </mat-cell>
+          </ng-container>
+
+          <!-- Edit column -->
+          <ng-container matColumnDef="edit">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
+            <mat-cell *matCellDef="let article">
+              <a [routerLink]="['../articles', article._id]"><mat-icon>create</mat-icon></a></mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;">
+          <mat-row *matRowDef="let article; columns: displayedColumns;">
           </mat-row>
         </mat-table>
 
@@ -53,7 +61,7 @@ import { AfterViewInit, OnInit } from '@angular/core/src/metadata/lifecycle_hook
 })
 export class ArticleListComponent implements OnInit, AfterViewInit {
 
-  displayedColumns = ['title', 'author', 'createdAt'];
+  displayedColumns = ['title', 'author', 'createdAt', 'edit'];
   dataSource: MatTableDataSource<Article>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
