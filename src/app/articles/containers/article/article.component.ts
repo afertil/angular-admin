@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Article, ArticlesService } from '../../shared/services/articles.service';
+import { LoggerService } from '../../../shared/logger/logger.service';
 
 @Component({
   selector: 'app-article',
@@ -24,7 +25,8 @@ export class ArticleComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private articlesService: ArticlesService
+    private articlesService: ArticlesService,
+    private loggerService: LoggerService
   ) {}
 
   ngOnInit() {
@@ -39,21 +41,39 @@ export class ArticleComponent implements OnInit {
 
   addArticle(event: Article) {
     this.articlesService.createArticle(event)
-      .subscribe(data => this.backToArticles());
+      .subscribe(
+        res => {
+          this.loggerService.success('Article successfully added');
+          this.backToArticles();
+        },
+        error => this.loggerService.error(error.error.message)
+      );
   }
 
   updateArticle(event: Article) {
     const key = this.route.snapshot.params.id;
 
     this.articlesService.updateArticle(key, event)
-      .subscribe(data => this.backToArticles());
+      .subscribe(
+        res => {
+          this.loggerService.success('Article successfully updated');
+          this.backToArticles();
+        },
+        error => this.loggerService.error(error.error.message)
+      );
   }
 
   removeArticle() {
     const key = this.route.snapshot.params.id;
 
     this.articlesService.deleteArticle(key)
-      .subscribe(data => this.backToArticles());
+      .subscribe(
+        res => {
+          this.loggerService.success('Article successfully deleted');
+          this.backToArticles();
+        },
+        error => this.loggerService.error(error.error.message)
+      );
   }
 
   backToArticles() {
