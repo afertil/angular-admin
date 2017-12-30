@@ -26,9 +26,8 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
     </div>
   `
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
 
-  subscription: Subscription;
   user$: Observable<User>;
   toggledSidenav = true;
 
@@ -40,12 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.subscription = this.authService.user.subscribe();
     this.user$ = this.store.select<User>('user');
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   onLogout() {

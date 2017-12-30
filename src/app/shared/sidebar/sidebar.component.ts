@@ -1,6 +1,10 @@
-import { Component, ChangeDetectorRef, OnDestroy, Input, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, OnDestroy, Input, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
+
+import { User } from '../../auth/shared/services/auth.service';
+import { Store } from '../../../store';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,6 +13,7 @@ import { MatSidenav } from '@angular/material';
   template: `
     <mat-sidenav-container class="sidenav">
       <mat-sidenav #sidenav
+        *ngIf="user$ | async"
         [opened]="toggle"
         [mode]="getMode()"
         class="container"
@@ -32,8 +37,9 @@ import { MatSidenav } from '@angular/material';
     </mat-sidenav-container>
   `
 })
-export class SidebarComponent implements OnDestroy {
+export class SidebarComponent implements OnInit, OnDestroy {
 
+  user$: Observable<User>;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
@@ -42,11 +48,16 @@ export class SidebarComponent implements OnDestroy {
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher
+    media: MediaMatcher,
+    private store: Store
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  ngOnInit() {
+    this.user$ = this.store.select<User>('user');
   }
 
   ngOnDestroy() {
