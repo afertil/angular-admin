@@ -44,8 +44,17 @@ export class AuthService {
    * @param {string} email - Email user
    * @param {string} password - Password user
    */
-  loginUser(email: string, password: string) {
+  loginUser(email: string, password: string): Observable<any> {
     return this.http.post(`${APP_CONFIG.api}/auth/login`, { email, password });
+  }
+
+  /**
+   * Refresh tokens
+   *
+   * @param {string} refreshToken - The refresh token user
+   */
+  refreshToken(refreshToken: string): Observable<any> {
+    return this.http.post(`${APP_CONFIG.api}/auth/refresh-token`, { refreshToken });
   }
 
   /**
@@ -63,7 +72,6 @@ export class AuthService {
 
   /**
    * Check if there's an unexpired JWT
-   * An offset of 5 seconds is used to be able to refresh the token silently
    *
    * @returns {boolean}
    */
@@ -74,7 +82,7 @@ export class AuthService {
       return false;
     }
 
-    return !this.jwtHelperService.isTokenExpired(tokens.accessToken, 5);
+    return !this.jwtHelperService.isTokenExpired(tokens.accessToken);
   }
 
   /**
@@ -82,16 +90,9 @@ export class AuthService {
    *
    * @returns {array} tokens - The token without Bearer entry
    */
-  private getTokens() {
-    let accessToken = localStorage.getItem('access_token');
-    let refreshToken = localStorage.getItem('refresh_token');
-
-    if (accessToken) {
-      accessToken = accessToken.substring(7);
-    }
-    if (refreshToken) {
-      refreshToken = refreshToken.substring(7);
-    }
+  getTokens(): any {
+    const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
 
     return { accessToken, refreshToken};
   }

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { JwtModule } from '@auth0/angular-jwt';
@@ -20,6 +20,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 // Services
 import { LoggerService } from './shared/logger/logger.service';
 import { Store } from '../store';
+import { RequestInterceptor } from './shared/interceptors/request.interceptor';
 
 // Guard
 import { AuthGuard } from './auth/shared/guards/auth.guard';
@@ -31,16 +32,6 @@ export const ROUTES: Routes = [
   { path: 'users', canActivate: [AuthGuard], loadChildren: './users/users.module#UsersModule'},
   { path: 'articles', canActivate: [AuthGuard], loadChildren: './articles/articles.module#ArticlesModule'},
 ];
-
-// JWT
-export const JWT_ROUTES = {
-  config: {
-    tokenGetter: () => {
-      return localStorage.getItem('access_token');
-    },
-    whitelistedDomains: ['localhost:3000']
-  }
-};
 
 @NgModule({
   declarations: [
@@ -66,7 +57,12 @@ export const JWT_ROUTES = {
   ],
   providers: [
     LoggerService,
-    Store
+    Store,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

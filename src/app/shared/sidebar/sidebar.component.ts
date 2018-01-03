@@ -3,7 +3,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
-import { User } from '../../auth/shared/services/auth.service';
+import { User, AuthService } from '../../auth/shared/services/auth.service';
 import { Store } from '../../../store';
 
 @Component({
@@ -49,7 +49,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private store: Store
+    private authService: AuthService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -57,7 +57,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.user$ = this.store.select<User>('user');
+    this.user$ = this.authService.user;
   }
 
   ngOnDestroy() {

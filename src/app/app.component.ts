@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { LoggerService } from './shared/logger/logger.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Store } from '../store';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
@@ -32,14 +31,13 @@ export class AppComponent implements OnInit {
   toggledSidenav = true;
 
   constructor(
-    private store: Store,
     private router: Router,
     private authService: AuthService,
     private loggerService: LoggerService
   ) {}
 
   ngOnInit() {
-    this.user$ = this.store.select<User>('user');
+    this.user$ = this.authService.user;
   }
 
   onLogout() {
