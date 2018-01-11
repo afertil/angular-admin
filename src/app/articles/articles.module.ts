@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+import { FileSelectDirective } from 'ng2-file-upload';
 import { MaterialModule } from './../material.module';
 
 // Services
@@ -19,9 +20,17 @@ import { ArticlesComponent } from './containers/articles/articles.component';
 import { ArticleComponent } from './containers/article/article.component';
 
 export const ROUTES: Routes = [
-  { path: '', component: ArticlesComponent, resolve: {articles: ArticlesResolver} },
+  {
+    path: '',
+    component: ArticlesComponent,
+    resolve: { articles: ArticlesResolver }
+  },
   { path: 'new', component: ArticleComponent },
-  { path: ':id', component: ArticleComponent, resolve: {article: ArticleResolver} },
+  {
+    path: ':id',
+    component: ArticleComponent,
+    resolve: { article: ArticleResolver }
+  }
 ];
 
 @NgModule({
@@ -35,12 +44,9 @@ export const ROUTES: Routes = [
     ArticlesComponent,
     ArticleComponent,
     ArticleFormComponent,
-    ArticleListComponent
+    ArticleListComponent,
+    FileSelectDirective
   ],
-  providers: [
-    ArticlesService,
-    ArticlesResolver,
-    ArticleResolver
-  ]
+  providers: [ArticlesService, ArticlesResolver, ArticleResolver]
 })
 export class ArticlesModule {}

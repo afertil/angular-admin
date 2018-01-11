@@ -9,6 +9,7 @@ export interface Article {
   _id: string;
   title: string;
   content: string;
+  imageUrl: string;
   author: string;
   created_at: Date;
   updated_at: Date;
@@ -16,9 +17,7 @@ export interface Article {
 
 @Injectable()
 export class ArticlesService {
-  constructor(
-    private http: HttpClient,
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getArticles(): Observable<Article[]> {
     return this.http.get<Article[]>(`${APP_CONFIG.api}/articles`);

@@ -1,3 +1,6 @@
+const host = 'http://localhost:3000';
+
 export const APP_CONFIG = {
-  api: 'http://localhost:3000/api'
+  api: `${host}/api`,
+  images: `${host}/images`
 };

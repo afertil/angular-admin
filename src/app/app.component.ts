@@ -1,11 +1,16 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-
-import { User, AuthService } from './auth/shared/services/auth.service';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { Router } from '@angular/router';
-import { LoggerService } from './shared/logger/logger.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+
+import { User, AuthService } from './auth/shared/services/auth.service';
+import { LoggerService } from './shared/logger/logger.service';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +27,11 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
         [toggle]="toggledSidenav">
       </app-sidebar>
 
+      <spinner debounceDelay="200" spinner="sk-chasing-dots"></spinner>
     </div>
   `
 })
 export class AppComponent implements OnInit {
-
   user$: Observable<User>;
   toggledSidenav = true;
 

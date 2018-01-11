@@ -18,20 +18,14 @@ import { User } from './../../../auth/shared/services/auth.service';
   `
 })
 export class UsersComponent implements OnInit {
-
   users: User[];
 
-  constructor(
-    private route: ActivatedRoute
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-
     // Retrieve the prefetched users
-    this.route.data.subscribe(
-      (data: { users: User[] }) => {
-        this.users = data.users;
-      }
-    );
+    this.route.data.subscribe((data: { users: User[] }) => {
+      this.users = data.users;
+    });
   }
 }

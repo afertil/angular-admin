@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 
 // Feature modules
 import { MaterialModule } from './material.module';
@@ -51,8 +52,9 @@ export const ROUTES: Routes = [
       }
     }),
     RouterModule.forRoot(ROUTES),
-    AuthModule,
     BrowserAnimationsModule,
+    NgHttpLoaderModule,
+    AuthModule,
     MaterialModule
   ],
   providers: [

@@ -27,29 +27,25 @@ import { LoggerService } from '../../../../shared/logger/logger.service';
     </div>
   `
 })
-
 export class LoginComponent {
-
   error: string;
 
-    constructor(
-      private authService: AuthService,
-      private loggerService: LoggerService,
-      private router: Router
-    ) {}
+  constructor(
+    private authService: AuthService,
+    private loggerService: LoggerService,
+    private router: Router
+  ) {}
 
-    async loginUser(event: FormGroup) {
-      const { email, password } = event.value;
+  async loginUser(event: FormGroup) {
+    const { email, password } = event.value;
 
-      await this.authService.loginUser(email, password)
-        .subscribe(
-          res => {
-            this.authService.storeData(res);
-            this.loggerService.success('Successfully connected');
-            this.router.navigate(['dashboard']);
-          },
-          error => this.loggerService.error(error.error.message)
-        );
-
-    }
+    await this.authService.loginUser(email, password).subscribe(
+      res => {
+        this.authService.storeData(res);
+        this.loggerService.success('Successfully connected');
+        this.router.navigate(['dashboard']);
+      },
+      error => this.loggerService.error(error.error.message)
+    );
+  }
 }

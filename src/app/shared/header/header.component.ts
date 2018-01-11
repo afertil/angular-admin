@@ -1,4 +1,10 @@
-import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 
 import { User } from '../../auth/shared/services/auth.service';
 
@@ -39,17 +45,13 @@ import { User } from '../../auth/shared/services/auth.service';
   `
 })
 export class HeaderComponent {
-
   toggled = true;
 
-  @Input()
-  user: User;
+  @Input() user: User;
 
-  @Output()
-  logout = new EventEmitter<any>();
+  @Output() logout = new EventEmitter<any>();
 
-  @Output()
-  toggledSidenav = new EventEmitter<boolean>();
+  @Output() toggledSidenav = new EventEmitter<boolean>();
 
   /**
    * Launch an event to logout the user

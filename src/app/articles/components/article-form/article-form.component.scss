@@ -1,0 +1,25 @@
+.article-form {
+  display: flex;
+  flex-direction: column;
+
+  .upload-image {
+    margin-bottom: 20px;
+    .preview {
+      width: 25%;
+    }
+  }
+
+  .article-form__image {
+    font-size: 12px;
+    display: block;
+    margin: 5px 0;
+  }
+
+  .article-form__content {
+    width: 100%;
+  }
+
+  .submit {
+    margin-top: 10px;
+  }
+}
