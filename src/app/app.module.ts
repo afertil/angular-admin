@@ -5,7 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { JwtModule } from '@auth0/angular-jwt';
-import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 
 // Feature modules
 import { MaterialModule } from './material.module';
@@ -15,8 +14,8 @@ import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 
 // Components
-import { HeaderComponent } from './shared/header/header.component';
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 // Services
 import { LoggerService } from './shared/logger/logger.service';
@@ -29,17 +28,25 @@ import { AuthGuard } from './auth/shared/guards/auth.guard';
 // Routes
 export const ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-  { path: 'dashboard', canActivate: [AuthGuard], loadChildren: './dashboard/dashboard.module#DashboardModule'},
-  { path: 'users', canActivate: [AuthGuard], loadChildren: './users/users.module#UsersModule'},
-  { path: 'articles', canActivate: [AuthGuard], loadChildren: './articles/articles.module#ArticlesModule'},
+  {
+    path: 'dashboard',
+    canActivate: [AuthGuard],
+    loadChildren: './dashboard/dashboard.module#DashboardModule'
+  },
+  {
+    path: 'users',
+    canActivate: [AuthGuard],
+    loadChildren: './users/users.module#UsersModule'
+  },
+  {
+    path: 'articles',
+    canActivate: [AuthGuard],
+    loadChildren: './articles/articles.module#ArticlesModule'
+  }
 ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    SidebarComponent
-  ],
+  declarations: [AppComponent, HeaderComponent, SidebarComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -53,7 +60,6 @@ export const ROUTES: Routes = [
     }),
     RouterModule.forRoot(ROUTES),
     BrowserAnimationsModule,
-    NgHttpLoaderModule,
     AuthModule,
     MaterialModule
   ],
@@ -68,4 +74,4 @@ export const ROUTES: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

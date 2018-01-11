@@ -14,5 +14,13 @@
     margin: 0 auto;
     padding: 25px;
     background-color: #fff;
+
+    mat-spinner {
+      margin: 25px auto;
+      display: none;
+    }
+    router-outlet + mat-spinner {
+      display: block;
+    }
   }
 }

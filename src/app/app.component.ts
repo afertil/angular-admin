@@ -26,8 +26,6 @@ import { LoggerService } from './shared/logger/logger.service';
       <app-sidebar
         [toggle]="toggledSidenav">
       </app-sidebar>
-
-      <spinner debounceDelay="200" spinner="sk-chasing-dots"></spinner>
     </div>
   `
 })

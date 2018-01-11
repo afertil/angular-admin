@@ -1,10 +1,19 @@
-import { Component, ChangeDetectorRef, OnInit, OnDestroy, Input, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy,
+  Input,
+  ElementRef,
+  ViewChild,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
-import { User, AuthService } from '../../auth/shared/services/auth.service';
-import { Store } from '../../../store';
+import { User, AuthService } from '../../../auth/shared/services/auth.service';
+import { Store } from '../../../../store';
 
 @Component({
   selector: 'app-sidebar',
@@ -31,6 +40,7 @@ import { Store } from '../../../store';
       <mat-sidenav-content>
         <div class="wrapper">
           <router-outlet></router-outlet>
+          <mat-spinner diameter="50"></mat-spinner>
         </div>
       </mat-sidenav-content>
 
@@ -38,13 +48,11 @@ import { Store } from '../../../store';
   `
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-
   user$: Observable<User>;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
 
-  @Input()
-  toggle: boolean;
+  @Input() toggle: boolean;
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,

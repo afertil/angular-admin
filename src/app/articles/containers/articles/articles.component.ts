@@ -14,20 +14,14 @@ import { Article } from '../../shared/services/articles.service';
   `
 })
 export class ArticlesComponent implements OnInit {
-
   articles: Article[];
 
-  constructor(
-    private route: ActivatedRoute
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-
     // Retrieve the prefetched articles
-    this.route.data.subscribe(
-      (data: { articles: Article[] }) => {
-        this.articles = data.articles;
-      }
-    );
+    this.route.data.subscribe((data: { articles: Article[] }) => {
+      this.articles = data.articles;
+    });
   }
 }
